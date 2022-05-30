@@ -11,7 +11,6 @@ import configparser
 
 configparser_ = configparser.ConfigParser()
 
-version = '0.0.4'
 # checks if config.ini exists
 if not configparser_.read('config.ini'):
     # if not, create one
