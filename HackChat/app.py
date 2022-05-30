@@ -40,6 +40,10 @@ class User:
         headers = {'content-type': 'application/json'}
         r = rq.post(address, data=payload, headers=headers)
         return r.json()
+    def get_user_info():
+        address = Settings.get_url() + '/user_info'
+        headers = {'content-type': 'application/json'}
+        r = rq.get(address, headers=headers)
 
 class Message:
     def get_last_messages():
