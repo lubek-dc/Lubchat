@@ -1,7 +1,7 @@
 # Lubchat
-Official python hackchat client
+Official Python client for HackChat.
 
-# server : https://github.com/kacperks/HackChat
+# Server: https://github.com/kacperks/HackChat
 
-# Schowcase:
+# Showcase:
 [![IMAGE_ALT](https://img.youtube.com/vi/lbospO9e3G0/0.jpg)](https://www.youtube.com/watch?v=lbospO9e3G0)

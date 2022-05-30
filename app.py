@@ -21,11 +21,12 @@ if not configparser_.read('config.ini'):
     configparser_.set('user', 'username', '')
     configparser_.set('user', 'password', '')
     configparser_.write(open('config.ini', 'w'))
+version = '0.0.7'
 #get version from github 
 
-def log_to_file():
-    file = open("log.txt", "a")
-    file.write(texte)
+def log_to_file(text_to_log):
+    file = open("log.txt", "w", encoding='utf8') #temporary (later change to append mode)
+    file.write(text_to_log)
     file.close()
     
 
@@ -37,11 +38,14 @@ def refresh_loop():
     threading.Timer(3, refresh_loop).start()
     messages = hcAPI.Message.get_last_messages()
     output = ''
+   
     for message in messages['messages']:
         output += message['author'] + ': ' + message['message'] + '\n'
+       
+    log_to_file(output)
     global texte
     texte = output
-    log_to_file()
+    
 
 def register_window():
     #layout: username, email, password, confirm password
