@@ -89,10 +89,15 @@ def login_window():
         if event == 'Login':
             #check if all are filled
             if values[0] == '' or values[1] == '':
+                if configparser_.get('user', 'username') != '':
+                    values[0] = configparser_.get('user', 'username')
+                    values[1] = configparser_.get('user', 'password')
+                    window.close()
                 # make a popup
-                sg.popup('Please fill all the fields up')
-                window.close()
-                login_window()
+                else:
+                    sg.popup('Please fill all the fields up')
+                    window.close()
+                    login_window()
             else:
                 token = hcAPI.User.login(values[0], values[1])
                 if token['code'] == 401:
