@@ -29,6 +29,7 @@ def refresh_loop():
         output += message['author'] + ': ' + message['message'] + '\n'
     global texte
     texte = output
+    log_to_file()
 
 def register_window():
     #layout: username, email, password, confirm password
