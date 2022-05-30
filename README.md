@@ -3,4 +3,5 @@ Official python hackchat client
 
 # server : https://github.com/kacperks/HackChat
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lbospO9e3G0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+# Schowcase:
+[![IMAGE_ALT](https://img.youtube.com/vi/lbospO9e3G0/0.jpg)]([https://www.youtube.com/watch?v=UmX4kyB2wfg](https://www.youtube.com/watch?v=lbospO9e3G0))
