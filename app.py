@@ -20,7 +20,7 @@ if not configparser_.read('config.ini'):
     configparser_.set('user', 'username', '')
     configparser_.set('user', 'password', '')
     configparser_.write(open('config.ini', 'w'))
-version = '0.0.8'
+version = '0.1.0'
 #get version from github 
 
 def log_to_file(text_to_log):
@@ -92,7 +92,9 @@ def login_window():
                 if configparser_.get('user', 'username') != '':
                     values[0] = configparser_.get('user', 'username')
                     values[1] = configparser_.get('user', 'password')
+                    token = hcAPI.User.login(values[0], values[1])
                     window.close()
+                    return token
                 # make a popup
                 else:
                     sg.popup('Please fill all the fields up')
@@ -131,6 +133,7 @@ if __name__ == '__main__':
         window = sg.Window('Server Settings', layout)
         event, values = window.read()
         url = values['url']
+        
         hcAPI.set_url(url)
         window.close()
         if event == 'Register':
@@ -138,13 +141,15 @@ if __name__ == '__main__':
             if values['remember'] == True:
                 configparser_.set('server', 'url', url)
                 configparser_.write(open('config.ini', 'w'))
-            
             hcAPI.set_url(url)
             response = register_window()
             print(response)
             token = None
         elif event == 'Login':
             #login window
+            if values['remember'] == True:
+                configparser_.set('server', 'url', url)
+                configparser_.write(open('config.ini', 'w'))
             hcAPI.set_url(url)
             response = login_window()
             token = response['token']
@@ -153,6 +158,8 @@ if __name__ == '__main__':
             exit()
     else:
         hcAPI.set_url(configparser_.get('server', 'url'))
+        response = login_window()
+        token = response['token']
     if configparser_.get('user', 'username') == '' or configparser_.get('user', 'password') == '':
         token = login_window()['token']
 
