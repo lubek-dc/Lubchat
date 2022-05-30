@@ -5,8 +5,17 @@ import PySimpleGUI as sg
 import requests
 import json
 from HackChat import app as hcAPI
-
+import threading
 #sg.Window(title="Hello World", layout=[[]], margins=(100, 50)).read()
+
+def refresh_loop():
+    threading.Timer(3, refresh_loop).start()
+    messages = hcAPI.Message.get_last_messages()
+    output = ''
+    for message in messages['messages']:
+        output += message['author'] + ': ' + message['message'] + '\n'
+    global texte
+    texte = output
 
 def register_window():
     #layout: username, email, password, confirm password
@@ -108,24 +117,21 @@ if __name__ == '__main__':
         layout = [[sg.Text('Admin Chat')],
                     [sg.Multiline(size=(30, 10), key='-OUTPUT-')],
                     [sg.InputText(key='-INPUT-')],
-                    [sg.Button('Send'),sg.Button('Refresh') , sg.Button('Logout'), sg.Button('Remove Message'), sg.Button('Grant Permission'), sg.Button('Revoke Permission')]]
+                    [sg.Button('Send') , sg.Button('Logout'), sg.Button('Remove Message'), sg.Button('Grant Permission'), sg.Button('Revoke Permission')]]
         
         window = sg.Window('LubChat - Admin Chat', layout)
-        
-
+        event, values = window.read()
+        refresh_loop()
         while True:
             #refresh the chat
-            event, values = window.read()
-            if event == 'Refresh': # example response: [[{'author': 'Lubekd', 'id': 1, 'message': 'Hello'}], 200]
-                messages = hcAPI.Message.get_last_messages()
-                messages = messages['messages']
-                output = ''
-                for message in messages:
-                    output +=  "("+str(message['id'])+") "+ message['author'] + ': ' + message['message'] + '\n'
-                window['-OUTPUT-'].update(output)
+            event, values = window.read(timeout=100,timeout_key='timeout')
 
+            # Change -OUTPUT- to the new text
+        
             #send a message
-            elif event == 'Send':
+            if event == 'timeout':
+                window['-OUTPUT-'].update(texte)
+            if event == 'Send':
                 hcAPI.Message.send_message(values['-INPUT-'])
             #logout
             elif event == 'Logout':
@@ -172,30 +178,30 @@ if __name__ == '__main__':
             
     else:
         layout = [[sg.Text('Chat')],
-                    [sg.Button('Refresh'), sg.Button('Send'), sg.Button('Logout')],
                     [sg.Multiline(size=(30, 10), key='-OUTPUT-')],
-                    [sg.InputText(key='-INPUT-')]]
-        window = sg.Window('Chat', layout)
-        event, values = window.read()
+                    [sg.InputText(key='-INPUT-')],
+                    [sg.Button('Send') , sg.Button('Logout')]]
+        window = sg.Window('LubChat - Chat', layout)
+        refresh_loop()
         while True:
             #refresh the chat
-            if event == 'Refresh': # example response: [[{'author': 'Lubekd', 'id': 1, 'message': 'Hello'}], 200]
-                messages = hcAPI.Message.get_last_messages()
-                output = ''
-                for message in messages[0]:
-                    output += message['author'] + ': ' + message['message'] + '\n'
-                window['-OUTPUT-'].update(output)
-                event, values = window.read()
+            
+            event, values = window.read(timeout=100, timeout_key='timeout')
+
 
             #send a message
+            if event == 'timeout':
+                window['-OUTPUT-'].update(texte)
+
             elif event == 'Send':
                 hcAPI.Message.send_message(values['-INPUT-'])
             #logout
             elif event == 'Logout':
-                hcAPI.User.logout()
                 exit()
-            #read the message
-            event, values = window.read()
+                #if user clicks exit button
+            elif event == sg.WIN_CLOSED:
+                exit()
+        
     
         
         
