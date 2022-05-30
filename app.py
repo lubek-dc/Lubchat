@@ -8,11 +8,11 @@ from HackChat import app as hcAPI
 import threading
 #sg.Window(title="Hello World", layout=[[]], margins=(100, 50)).read()
 
-version = '0.0.6'
+version = '0.0.7'
 #get version from github 
 
 def log_to_file(text_to_log):
-    file = open("log.txt", "w") #temporary (later change to append mode)
+    file = open("log.txt", "w", encoding='utf8') #temporary (later change to append mode)
     file.write(text_to_log)
     file.close()
     
