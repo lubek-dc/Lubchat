@@ -1,6 +1,9 @@
 import requests as rq
 import json
+
 # make a variable that will be accessable from functions
+
+
 
 
 def set_url(url_):

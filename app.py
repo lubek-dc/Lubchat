@@ -7,8 +7,9 @@ import json
 from HackChat import app as hcAPI
 import threading
 import configparser
+import git
 #sg.Window(title="Hello World", layout=[[]], margins=(100, 50)).read()
-
+repourl = "https://github.com/lubek-dc/Lubchat.git"
 configparser_ = configparser.ConfigParser()
 
 # checks if config.ini exists
@@ -20,7 +21,7 @@ if not configparser_.read('config.ini'):
     configparser_.set('user', 'username', '')
     configparser_.set('user', 'password', '')
     configparser_.write(open('config.ini', 'w'))
-version = '0.1.1'
+version = '0.1.2'
 #get version from github 
 
 def log_to_file(text_to_log):
@@ -124,7 +125,15 @@ if __name__ == '__main__':
     if get_version().startswith(version):
         pass
     else:
-        sg.popup('A new version is available, please update')
+        layout = [[sg.Text('Your version is outdated, please update to the latest version')],
+                    [sg.Button('Update')]]
+        window = sg.Window('LubChat - Update', layout)
+        event, values = window.read()
+        if event == 'Update':
+            #git pull
+            git.Git('./').pull()
+            window.close()
+            exit()
     if configparser_.get('server', 'url') == '':
         layout = [[sg.Text('Enter the url of the server')],
                 [sg.InputText(key='url')],
