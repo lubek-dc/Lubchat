@@ -21,7 +21,7 @@ if not configparser_.read('config.ini'):
     configparser_.set('user', 'username', '')
     configparser_.set('user', 'password', '')
     configparser_.write(open('config.ini', 'w'))
-version = '0.1.5'
+version = '0.1.6'
 #get version from github 
 
 def log_to_file(text_to_log):
@@ -120,13 +120,13 @@ if __name__ == '__main__':
     #chat data needed : message
     # azure theme
     # open file dialog using sg
-    filepath = sg.popup_get_file('Choose a Git Executable', no_window=True)
-    git.refresh(filepath)
     sg.theme('DarkAmber')
     # if get_version contains version, then the client is up to date
     if get_version().startswith(version):
         pass
     else:
+        filepath = sg.popup_get_file('Choose a Git Executable', no_window=True)
+        git.refresh(filepath)
         layout = [[sg.Text('Your version is outdated, please update to the latest version')],
                     [sg.Button('Update')]]
         window = sg.Window('LubChat - Update', layout)
