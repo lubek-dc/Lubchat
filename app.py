@@ -21,7 +21,7 @@ if not configparser_.read('config.ini'):
     configparser_.set('user', 'username', '')
     configparser_.set('user', 'password', '')
     configparser_.write(open('config.ini', 'w'))
-version = '0.1.3'
+version = '0.1.4'
 #get version from github 
 
 def log_to_file(text_to_log):
@@ -38,7 +38,6 @@ def refresh_loop():
     threading.Timer(1, refresh_loop).start()
     messages = hcAPI.Message.get_last_messages()
     output = ''
-   
     for message in messages['messages']:
         output += message['author'] + ': ' + message['message'] + '\n'
        

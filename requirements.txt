@@ -1,3 +1,4 @@
 pywit
 PySimpleGui
 configparser
+GitPython
