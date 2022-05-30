@@ -13,7 +13,7 @@ version = '0.0.4'
 
 def log_to_file():
     file = open("log.txt", "a")
-    file.write(texte.encode('utf-8'))
+    file.write(texte)
     file.close()
     
 
