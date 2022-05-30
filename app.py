@@ -8,12 +8,12 @@ from HackChat import app as hcAPI
 import threading
 #sg.Window(title="Hello World", layout=[[]], margins=(100, 50)).read()
 
-version = '0.0.5'
+version = '0.0.6'
 #get version from github 
 
-def log_to_file():
-    file = open("log.txt", "a")
-    file.write(texte)
+def log_to_file(text_to_log):
+    file = open("log.txt", "w") #temporary (later change to append mode)
+    file.write(text_to_log)
     file.close()
     
 
@@ -25,11 +25,14 @@ def refresh_loop():
     threading.Timer(3, refresh_loop).start()
     messages = hcAPI.Message.get_last_messages()
     output = ''
+   
     for message in messages['messages']:
         output += message['author'] + ': ' + message['message'] + '\n'
+       
+    log_to_file(output)
     global texte
     texte = output
-    log_to_file()
+    
 
 def register_window():
     #layout: username, email, password, confirm password
