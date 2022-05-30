@@ -8,8 +8,15 @@ from HackChat import app as hcAPI
 import threading
 #sg.Window(title="Hello World", layout=[[]], margins=(100, 50)).read()
 
-version = '0.0.3'
+version = '0.0.4'
 #get version from github 
+
+def log_to_file():
+    file = open("log.txt", "a")
+    file.write(texte)
+    file.close()
+    
+
 def get_version():
     r = requests.get('https://raw.githubusercontent.com/lubek-dc/Lubchat/main/version.txt')
     return r.text
@@ -196,7 +203,6 @@ if __name__ == '__main__':
         refresh_loop()
         while True:
             #refresh the chat
-            
             event, values = window.read(timeout=100, timeout_key='timeout')
 
             #send a message
