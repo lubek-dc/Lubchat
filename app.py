@@ -8,7 +8,7 @@ from HackChat import app as hcAPI
 import threading
 #sg.Window(title="Hello World", layout=[[]], margins=(100, 50)).read()
 
-version = '0.0.4'
+version = '0.0.5'
 #get version from github 
 
 def log_to_file():
