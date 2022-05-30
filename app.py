@@ -8,7 +8,7 @@ from HackChat import app as hcAPI
 import threading
 #sg.Window(title="Hello World", layout=[[]], margins=(100, 50)).read()
 
-version = '0.0.2'
+version = '0.0.3'
 #get version from github 
 def get_version():
     r = requests.get('https://raw.githubusercontent.com/lubek-dc/Lubchat/main/version.txt')
