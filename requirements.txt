@@ -1,2 +1,3 @@
 pywit
 PySimpleGui
+configparser
