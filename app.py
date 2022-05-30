@@ -84,9 +84,11 @@ if __name__ == '__main__':
     #chat data needed : message
     # azure theme
     sg.theme('DarkAmber')
-    # make a window for setting url
-    if version != get_version():
-        sg.popup('New version available Please Update! link: ')
+    # if get_version contains version, then the client is up to date
+    if get_version().startswith(version):
+        pass
+    else:
+        sg.popup('A new version is available, please update')
     layout = [[sg.Text('Enter the url of the server')],
                 [sg.InputText(key='url')],
                 [sg.Button('Register'), sg.Button('Login'), sg.Button('Cancel')]]
