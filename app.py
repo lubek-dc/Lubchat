@@ -21,7 +21,7 @@ if not configparser_.read('config.ini'):
     configparser_.set('user', 'username', '')
     configparser_.set('user', 'password', '')
     configparser_.write(open('config.ini', 'w'))
-version = '0.1.2'
+version = '0.1.3'
 #get version from github 
 
 def log_to_file(text_to_log):
