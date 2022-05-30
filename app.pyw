@@ -8,12 +8,6 @@ from HackChat import app as hcAPI
 import threading
 #sg.Window(title="Hello World", layout=[[]], margins=(100, 50)).read()
 
-version = '0.0.2'
-#get version from github 
-def get_version():
-    r = requests.get('https://raw.githubusercontent.com/lubek-dc/Lubchat/main/version.txt')
-    return r.text
-
 def refresh_loop():
     threading.Timer(3, refresh_loop).start()
     messages = hcAPI.Message.get_last_messages()
@@ -85,8 +79,6 @@ if __name__ == '__main__':
     # azure theme
     sg.theme('DarkAmber')
     # make a window for setting url
-    if version != get_version():
-        sg.popup('New version available Please Update! link: ')
     layout = [[sg.Text('Enter the url of the server')],
                 [sg.InputText(key='url')],
                 [sg.Button('Register'), sg.Button('Login'), sg.Button('Cancel')]]
@@ -197,13 +189,13 @@ if __name__ == '__main__':
             
             event, values = window.read(timeout=100, timeout_key='timeout')
 
+
             #send a message
             if event == 'timeout':
                 window['-OUTPUT-'].update(texte)
 
             elif event == 'Send':
                 hcAPI.Message.send_message(values['-INPUT-'])
-                window['-INPUT-'].update('')
             #logout
             elif event == 'Logout':
                 exit()
