@@ -20,7 +20,7 @@ if not configparser_.read('config.ini'):
     configparser_.add_section('user')
     configparser_.set('user', 'token', '')
     configparser_.write(open('config.ini', 'w'))
-version = '0.1.7'
+version = '0.1.8'
 #get version from github 
 
 def log_to_file(text_to_log):
@@ -122,17 +122,25 @@ if __name__ == '__main__':
     if get_version().startswith(version):
         pass
     else:
-        filepath = sg.popup_get_file('Choose a Git Executable', no_window=True)
-        git.refresh(filepath)
+        
         layout = [[sg.Text('Your version is outdated, please update to the latest version')],
-                    [sg.Button('Update')]]
+                   [sg.Text('When you click update program will stash Changes and pull the latest version')],
+                 [sg.Text('IMPORTANT: INSTALL GIT IF YOU HAVE NOT INSTALLED IT AND WHEN YOU CLICK UPDATE THEN YOU MUST PROVIDE PATH TO GIT.EXE')],
+                    [sg.Button('Update'), sg.Button('Cancel')]]
         window = sg.Window('LubChat - Update', layout)
         event, values = window.read()
         if event == 'Update':
             #git pull
+            filepath = sg.popup_get_file('Choose a Git Executable', no_window=True)
+            git.refresh(filepath)
+            #git stash
+            git.Git('./').stash()
+            #git pull
             git.Git('./').pull()
             window.close()
             exit()
+        else:
+            window.close()
     if configparser_.get('server', 'url') == '':
         layout = [[sg.Text('Enter the url of the server')],
                 [sg.InputText(key='url')],
