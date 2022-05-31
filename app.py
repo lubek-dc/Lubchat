@@ -136,7 +136,7 @@ if __name__ == '__main__':
         layout = [[sg.Text('Your version is outdated, please update to the latest version')],
                    [sg.Text('When you click update program will stash Changes and pull the latest version')],
                  [sg.Text('IMPORTANT: INSTALL GIT IF YOU HAVE NOT INSTALLED IT AND WHEN YOU CLICK UPDATE THEN YOU MUST PROVIDE PATH TO GIT.EXE')],
-                    [sg.Button('Update'), sg.Button('Cancel')]]
+                    [sg.Button('Update'), sg.Button('Ignore')]]
         window = sg.Window('LubChat - Update', layout)
         event, values = window.read()
         if event == 'Update':
