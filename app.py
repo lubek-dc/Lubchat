@@ -141,8 +141,7 @@ if __name__ == '__main__':
         event, values = window.read()
         if event == 'Update':
             #git pull
-            filepath = sg.popup_get_file('Choose a Git Executable', no_window=True)
-            git.refresh(filepath)
+            git.refresh('C:\Program Files\Git\bin\git.exe')
             #git stash
             git.Git('./').stash()
             #git pull
@@ -205,7 +204,14 @@ if __name__ == '__main__':
 #    "rankid": 3
 #}
     userss = hcAPI.User.get_user_info()
-    if userss['rankid'] == 1:
+    rankid = None
+    try:
+        rankid = userss['rankid']
+    except KeyError:
+        print("Server Has restarted Please open the program again and login again")
+        exit()
+
+    if rankid == 1:
         layout = [[sg.Text('Admin Chat')],
                     [sg.Multiline(size=(30, 10), key='-OUTPUT-')],
                     [sg.InputText(key='-INPUT-')],
