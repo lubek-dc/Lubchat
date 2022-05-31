@@ -1,5 +1,6 @@
 import requests as rq
 import json
+import PySimpleGUI as sg
 
 # make a variable that will be accessable from functions
 

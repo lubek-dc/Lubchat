@@ -1,5 +1,7 @@
 # hello_world.py
 
+from ctypes import alignment
+from tkinter import CENTER
 from urllib import response
 import PySimpleGUI as sg
 import requests
@@ -127,8 +129,13 @@ if __name__ == '__main__':
     #login data needed : username or mail, password
     #chat data needed : message
     # azure theme
-    # open file dialog using sg
-    sg.theme('DarkAmber')
+    # white background
+    sg.theme_background_color('white')
+    sg.theme_text_color('black')
+    sg.theme_button_color('black')
+    sg.theme_element_background_color('white')
+    sg.theme_element_text_color('black')
+    sg.theme_input_background_color('white')
     # if get_version contains version, then the client is up to date
     if get_version().startswith(version):
         pass
@@ -216,7 +223,7 @@ if __name__ == '__main__':
         exit()
 
     if rankid == 1:
-        layout = [[sg.Text('Admin Chat')],
+        layout = [
                     [sg.Multiline(size=(30, 10), key='-OUTPUT-')],
                     [sg.InputText(key='-INPUT-')],
                     [sg.Button('Send') , sg.Button('Logout'), sg.Button('Remove Message'), sg.Button('Grant Permission'), sg.Button('Revoke Permission')]]
@@ -279,10 +286,14 @@ if __name__ == '__main__':
                     hcAPI.User.revoke_permission(user['id'])
             
     else:
-        layout = [[sg.Text('Chat')],
-                    [sg.Multiline(size=(30, 10), key='-OUTPUT-')],
-                    [sg.InputText(key='-INPUT-')],
-                    [sg.Button('Send') , sg.Button('Logout')]]
+        layout = [
+                    [sg.Multiline(size=(70, 10), key='-OUTPUT-')],
+                    [sg.InputText(key='-INPUT-', size=(70, 1))],
+                    #center the button
+                    [sg.Button('Send', size=(10, 1), pad=((200, 0), (0, 0)))]]
+
+            #what will be the size of this layout
+            #respone: {'width': '600', 'height': '400'}
         window = sg.Window('LubChat - Chat', layout)
         refresh_loop()
         while True:
