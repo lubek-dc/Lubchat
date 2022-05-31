@@ -121,6 +121,7 @@ def login_window():
                     return token
 
 if __name__ == '__main__':
+    git.refresh()
     version = get_local_version()
     #This is a chat client
     #login data needed : username or mail, password
@@ -140,8 +141,6 @@ if __name__ == '__main__':
         window = sg.Window('LubChat - Update', layout)
         event, values = window.read()
         if event == 'Update':
-            #git pull
-            git.refresh('C:\Program Files\Git\bin\git.exe')
             #git stash
             git.Git('./').stash()
             #git pull
