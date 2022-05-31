@@ -107,8 +107,3 @@ class Admin:
         headers = {'x-access-tokens': token}
         r = rq.delete(address, headers=headers)
         return r.json()
-
-if __name__ == '__main__':
-    set_url('http://localhost:5000')
-    set_token(User.login('Lubekd','LUbeK')['token'])
-    print(User.get_last_messages())

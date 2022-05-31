@@ -18,10 +18,9 @@ if not configparser_.read('config.ini'):
     configparser_.add_section('server')
     configparser_.set('server', 'url', '')
     configparser_.add_section('user')
-    configparser_.set('user', 'username', '')
-    configparser_.set('user', 'password', '')
+    configparser_.set('user', 'token', '')
     configparser_.write(open('config.ini', 'w'))
-version = '0.1.6'
+version = '0.1.7'
 #get version from github 
 
 def log_to_file(text_to_log):
@@ -89,12 +88,11 @@ def login_window():
         if event == 'Login':
             #check if all are filled
             if values[0] == '' or values[1] == '':
-                if configparser_.get('user', 'username') != '':
-                    values[0] = configparser_.get('user', 'username')
-                    values[1] = configparser_.get('user', 'password')
-                    token = hcAPI.User.login(values[0], values[1])
+                if configparser_.get('user', 'token') != '':
+                    response = {'token': configparser_.get('user', 'token')}
+                    hcAPI.set_token(response['token'])
                     window.close()
-                    return token
+                    return response
                 # make a popup
                 else:
                     sg.popup('Please fill all the fields up')
@@ -108,8 +106,7 @@ def login_window():
                     login_window()
                 else:
                     if values[2] == True:
-                        configparser_.set('user', 'username', values[0])
-                        configparser_.set('user', 'password', values[1])
+                        configparser_.set('user', 'token', token['token'])
                         configparser_.write(open('config.ini', 'w'))
                     window.close()
                     return token
@@ -171,7 +168,7 @@ if __name__ == '__main__':
         hcAPI.set_url(configparser_.get('server', 'url'))
         response = login_window()
         token = response['token']
-    if configparser_.get('user', 'username') == '' or configparser_.get('user', 'password') == '':
+    if configparser_.get('user', 'token') == '' :
         token = login_window()['token']
 
 
