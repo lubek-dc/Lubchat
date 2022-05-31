@@ -20,7 +20,16 @@ if not configparser_.read('config.ini'):
     configparser_.add_section('user')
     configparser_.set('user', 'token', '')
     configparser_.write(open('config.ini', 'w'))
-version = '0.1.8'
+# read version from file version.txt
+def get_local_version():
+    #file : version.txt
+    file = open('version.txt', 'r')
+    version = file.read()
+    file.close()
+    print(version)
+    return version
+    
+
 #get version from github 
 
 def log_to_file(text_to_log):
@@ -112,6 +121,7 @@ def login_window():
                     return token
 
 if __name__ == '__main__':
+    version = get_local_version()
     #This is a chat client
     #login data needed : username or mail, password
     #chat data needed : message
