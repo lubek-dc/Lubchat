@@ -163,7 +163,7 @@ if __name__ == '__main__':
             window.close()
     if configparser_.get('server', 'url') == '':
         layout = [[sg.Text('Enter the url of the server')],
-                [sg.InputText(key='url')],
+                [sg.InputText(key='url'), sg.Checkbox('official server')],
                 [sg.Button('Register'), sg.Button('Login'), sg.Button('Cancel')],
                 [sg.Checkbox('Remember me', key='remember')]]
         window = sg.Window('Server Settings', layout)
@@ -174,6 +174,8 @@ if __name__ == '__main__':
         window.close()
         if event == 'Register':
             #register window
+            if values['official server'] == True:
+                url = 'http://91.232.4.210:8001'
             if values['remember'] == True:
                 configparser_.set('server', 'url', url)
                 configparser_.write(open('config.ini', 'w'))
@@ -183,13 +185,15 @@ if __name__ == '__main__':
             token = None
         elif event == 'Login':
             #login window
+            if values['official server'] == True:
+                url = 'http://91.232.4.210:8001'
             if values['remember'] == True:
                 configparser_.set('server', 'url', url)
                 configparser_.write(open('config.ini', 'w'))
             hcAPI.set_url(url)
             response = login_window()
             token = response['token']
-        if event == 'Cancel':
+        elif event == 'Cancel':
             #quit the program
             exit()
     else:
