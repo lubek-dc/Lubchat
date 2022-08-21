@@ -22,9 +22,8 @@ if not configparser_.read('config.ini'):
     configparser_.add_section('user')
     configparser_.set('user', 'token', '')
     configparser_.write(open('config.ini', 'w'))
-# read version from file version.txt
+# Read version from file version.txt
 def get_local_version():
-    #file : version.txt
     file = open('version.txt', 'r')
     version = file.read()
     file.close()
@@ -32,7 +31,7 @@ def get_local_version():
     return version
     
 
-#get version from github 
+# Get version from github 
 
 def log_to_file(text_to_log):
     file = open("log.txt", "w", encoding='utf8') #temporary (later change to append mode)
@@ -49,7 +48,7 @@ def refresh_loop():
     messages = hcAPI.Message.get_last_messages()
     output = ''
     for message in messages['messages']:
-        output += message['author'] + ': ' + message['message'] + '\n'
+        output += '[' + message['author'] + '] ' + message['message'] + '\n'
        
     log_to_file(output)
     global texte
