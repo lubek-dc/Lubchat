@@ -68,20 +68,20 @@ def register_window():
             #check if all are filled
             if values[0] == '' or values[1] == '' or values[2] == '':
                 # make a popup
-                sg.popup('Please fill all the fields up')
+                sg.popup('Please enter all the fields!')
                 window.close()
                 register_window()
                 
             #check if password and confirm password are the same
             elif values[1] != values[2]:
-                sg.popup('Password and confirm password are not the same')
+                sg.popup('Passwords are not the same!')
                 window.close()
                 register_window()
             else:
                 data = hcAPI.User.register(values[0], values[1])
                 print(data)
                 window.close()
-                sg.popup('You have been registered')
+                sg.popup('You have been registered! Have a nice day.')
                 exit()
 
 def login_window():
@@ -111,7 +111,7 @@ def login_window():
             else:
                 token = hcAPI.User.login(values[0], values[1])
                 if token['code'] == 401:
-                    sg.popup('Wrong username or password')
+                    sg.popup('Invalid credentials')
                     window.close()
                     login_window()
                 else:
@@ -140,11 +140,11 @@ if __name__ == '__main__':
         pass
     else:
         
-        layout = [[sg.Text('Your version is outdated, please update to the latest version')],
-                   [sg.Text('When you click update program will stash Changes and pull the latest version')],
-                 [sg.Text('IMPORTANT: INSTALL GIT IF YOU HAVE NOT INSTALLED IT')],
-                    [sg.Button('Update'),sg.Button('Git Download Page'), sg.Button('Ignore')]]
-        window = sg.Window('LubChat - Update', layout)
+        layout = [[sg.Text('Your version is outdated, please update to the latest version.')],
+                   [sg.Text('When you click update, the program will stash changes and pull the latest version.')],
+                 [sg.Text('IMPORTANT NOTE: INSTALL GIT IF YOU HAVE NOT INSTALLED IT ALREADY')],
+                    [sg.Button('Update'),sg.Button('Download Git'), sg.Button('Ignore')]]
+        window = sg.Window('Update LubChat', layout)
         event, values = window.read()
         if event == 'Update':
             #git stash
@@ -153,7 +153,7 @@ if __name__ == '__main__':
             git.Git('./').pull()
             window.close()
             exit()
-        elif event == 'Git Download Page':
+        elif event == 'Download Git':
             import webbrowser
             webbrowser.open('https://gitforwindows.org/')
             window.close()
@@ -161,8 +161,8 @@ if __name__ == '__main__':
         else:
             window.close()
     if configparser_.get('server', 'url') == '':
-        layout = [[sg.Text('Enter the url of the server')],
-                [sg.InputText(key='url'), sg.Checkbox('official server', key= "off")],
+        layout = [[sg.Text('Enter the server URI')],
+                [sg.InputText(key='url'), sg.Checkbox('Official server', key= "off")],
                 [sg.Button('Register'), sg.Button('Login'), sg.Button('Cancel')],
                 [sg.Checkbox('Remember me', key='remember')]]
         window = sg.Window('Server Settings', layout)
@@ -222,7 +222,7 @@ if __name__ == '__main__':
     try:
         rankid = userss['rankid']
     except KeyError:
-        print("Server Has restarted Please open the program again and login again")
+        print("Server stopped or restarting; please restart the program and relog.")
         exit()
 
     if rankid == 1:
@@ -255,7 +255,7 @@ if __name__ == '__main__':
             #read the message
             elif event == 'Grant Permission':
                 #make a popup for the user to choose the user
-                layout = [[sg.Text('Choose the user')],
+                layout = [[sg.Text('Choose user')],
                             [sg.InputText(key='user')],
                             [sg.DropDown(['Admin','Moderator','User'], key='type')],
                             [sg.Button('Grant'), sg.Button('Cancel')]]
