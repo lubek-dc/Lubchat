@@ -5,7 +5,7 @@ Official Python client for HackChat.
 The official server (HackChat) can be accessed here: https://github.com/kacperks/HackChat
 
 # Installation procedure
-1) Install Git for Windows; if you have already then skip this step (link : https://gitforwindows.org/)
+1) Install Git; if you have already then skip this step (link : https://git-scm.com/download/win)
 2) Install Python; link: https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe while installing make sure to select "Add to global variables"
 3) Navigate to the directory to which you would like to install the software, right-click and select "Git Bash Here": ![image](https://user-images.githubusercontent.com/70327203/171130784-826f0139-f1ca-4e13-9a9f-6fe028847edf.png)
 4) Execute the following command in order to clone the repository to your local machine: git clone https://github.com/lubek-dc/Lubchat.git![image](https://user-images.githubusercontent.com/70327203/171163954-bbeefdf1-2e35-4d2e-b4b6-e56fe98913c4.png)
