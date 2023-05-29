@@ -7,7 +7,7 @@ The official server (HackChat) can be accessed here: https://github.com/kacperks
 ## Installation procedure
 1) Install Git; if you have already then skip this step (link : https://git-scm.com/download/win)
 2) Install Python; link: https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe while installing make sure to select "Add to global variables"
-3) Navigate to the directory to which you would like to install the software, right-click and select "Git Bash Here": ![image](https://user-images.githubusercontent.com/70327203/171130784-826f0139-f1ca-4e13-9a9f-6fe028847edf.png)
+3) Navigate to the directory to which you would like to install the software, right-click and select "Git Bash Here": ![image]([https://user-images.githubusercontent.com/70327203/171130784-826f0139-f1ca-4e13-9a9f-6fe028847edf.png](https://cdn.discordapp.com/attachments/878944912391958579/1112869631527493682/image.png))
 4) Execute the following command in order to clone the repository to your local machine: git clone https://github.com/lubek-dc/Lubchat.git![image](https://user-images.githubusercontent.com/70327203/171163954-bbeefdf1-2e35-4d2e-b4b6-e56fe98913c4.png)
 5) Now navigate to the directory and run install.bat (if there are any errors, ignore them but if something is not working properly then file an issue on GitHub![image](https://user-
 * If you get an error saying 'pip' is not recognized as an internal or external command, program or batch file, use install-pip3.bat
